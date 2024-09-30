@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Quote
+{% endblock %}
+
+{% block main %}
+    <form action="/quote" method="post">
+        <div class="mb-3">
+            <input class="form-control mx-auto w-auto" name="symbol" placeholder="Enter Symbol" type="text" autocomplete="off">
+        </div>
+        <button class="btn btn-primary" type="submit">Find</button>
+    </form>
+    <h3><br> <u>{{ statement }}</u> <br><br></h3>
+    {% if statement != "" %}
+        <table class="table">
+            <thead class="table-dark">
+                <tr>
+                    <th>SYMBOL</th>
+                    <th>PRICE</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td> {{ results["symbol"] }} </td>
+                    <td> {{ results["price"] | usd }} </td>
+                </tr>
+            </tbody>
+        </table>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    History
+{% endblock %}
+
+{% block main %}
+
+    <h3 style="text-align: center"><u>Transaction History of: {{ username }} <br><br></u></h3>
+    <table class="table">
+        <thead class="table-dark">
+            <tr>
+                <th>Type</th>
+                <th>Symbol</th>
+                <th>Price</th>
+                <th>Number</th>
+                <th>Date & Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in history %}
+                <tr>
+                    <td> {{ row["type"] }} </td>
+                    <td> {{ row["symbol"] }} </td>
+                    <td> {{ row["price"] | usd }} </td>
+                    <td> {{ row["number"] }} </td>
+                    <td> {{ row["datetime"] }} </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

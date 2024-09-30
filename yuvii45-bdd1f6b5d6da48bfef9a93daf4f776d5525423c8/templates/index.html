@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block main %}
+
+    <h3><u>Portfolio of: {{ username }} <br><br></u></h3>
+    <h5>You have: <u>{{ cash | usd}}</u> remaining.<br><br></h5>
+    <table class="table">
+        <thead class="table-dark">
+            <tr>
+                <th>Symbol</th>
+                <th>Buy</th>
+                <th>Number</th>
+                <th>Sell</th>
+                <th>Current Price</th>
+                <th>Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in rows %}
+                {% if row["number"] > 0 %}
+                    <tr>
+                        <td> {{ row["symbol"] }} </td>
+                        <td>
+                            <form action="/buy" method="post">
+                                <input name="symbol" type="hidden" value="{{ row['symbol'] }}">
+                                <input name="number" type="hidden" value="1">
+                                <button class="btn btn-primary" type="submit">+</button>
+                            </form>
+                        </td>
+                        <td> {{ row["number"] }} </td>
+                        <td>
+                            <form action="/sell" method="post">
+                                <input name="symbol" type="hidden" value="{{ row['symbol'] }}">
+                                <input name="number" type="hidden" value="1">
+                                <button class="btn btn-primary" type="submit">-</button>
+                            </form>
+                        </td>
+                        <td> {{ row["current_price"] | usd }} </td>
+                        <td> {{ row["value"] | usd }} </td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+    <h5>You have overall assets worth: <u>{{ assets | usd}}</u> remaining.<br><br></h5>
+
+{% endblock %}
